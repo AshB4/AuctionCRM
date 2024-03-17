@@ -1,38 +1,231 @@
-.App {
-  text-align: center;
+
+/* contains styles specific to individual components */
+/* Jump to's 
+header
+square
+Menu
+Tables
+Media Q's
+*/
+
+
+.header {
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+  padding: 90px;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header h1 {
+  font-size: 40px;
+  font-weight: 800;
+  margin: 0;
+  padding-left: 95px;
+  position: relative;
+  z-index: 1;
+  width: fit-content;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header h3 {
+  font-size: 16px;
+  margin: 0;
+  color:var(--accent-yellow);
+  padding-left: 320px;
+  width: fit-content;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.square {
+  position: relative;
+  z-index: 0;
+  width: fit-content;
+}
+
+.square::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 40px;
+  width: 200px;
+  height: 150px;
+  border: 4px solid var(--border-color);
+  z-index: 0;
+  
+}
+
+/* Menu */
+
+.drawer {
+  top: 0;
+  left: 0px;
+  width: 250px;
+  height: 100vh;
+  background-color: var(--accent-ivory);
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  float: left;
+  
 }
 
-.App-link {
-  color: #61dafb;
+.drawer.drawer-open {
+  transform: translateX(0%);
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.drawer .app-container {
+  padding:20px;
 }
+
+.drawer .icons svg {
+  font-size: 25px;
+}
+
+.menu-button {
+  border: none;
+  background-color: var(--accent-ivory);
+  padding: 10;
+  outline: none;
+}
+
+.closeMenu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  padding: 10;
+
+}
+
+.closeMenu:focus {
+  outline: none;
+}
+
+.openMenu {
+  background-color: transparent;
+    border: none;
+    padding: 10;
+}
+ /* Tables */
+ .container {
+   display: flex;
+ }
+
+ .sections {
+   flex-grow: 1;
+   padding: 20px;
+ }
+
+ .centered {
+   text-align: center;
+ }
+
+ .error-container {
+  display: flex;
+    justify-content: center;
+   background-color: var(--accent-yellow);
+   border-radius: 100px;
+ }
+
+ .error {
+   color: black;
+   text-align: center;
+ }
+
+ table {
+   border-collapse: collapse;
+   width: 100%;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   padding: 5px;
+ }
+
+ table th {
+   font-weight: bold;
+   padding: 5px;
+ }
+
+ table td {
+   border: 1px solid var(--accent-timberWolf);
+   padding: 8px;
+ }
+
+ table {
+   border-collapse: collapse;
+   width: 100%;
+ }
+
+ /* table headings */
+ th {
+   font-weight: bold;
+ }
+
+ /* table data */
+ td {
+   border: 2px solid var(--primary-black);
+   padding: 8px;
+ }
+
+ .table-container {
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+   margin-left: 250px;
+    display: flex;
+ }
+
+ h2 {
+   text-align: center;
+   font-weight: bold;
+ }
+
+ /* Media Q's */
+
+@media only screen and (max-width: 360px) {
+  .header h1 {
+    font-size: 25px;
+    padding-left: 0;
+  }
+
+  .header h3 {
+    font-size: 15px;
+    padding-left: 0;
+  }
+ 
+   .square::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: -10px;
+      width: 150px;
+      height: 150px;
+      border: 4px solid var(--border-color);
+      z-index: 0;
+
+      .breakPoint {
+          width: 100%;
+        }
+  
+    }
+        .drawer {
+          top: 20vh;
+          width:min-content
+        }
+}
+
+@media only screen and (max-width: 768px) {
+  .header h1 {
+    font-size: 30px;
+  }
+     .header h3 {
+       font-size: 14px;
+      padding-left: 27vh;
+     }
+  
+     .square::before {
+       width: 20vw;
+       height: 15vh;
+} 
+} 

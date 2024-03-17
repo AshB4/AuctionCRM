@@ -1,24 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+import EquipmentTypes from "./Components/equipment-types";
+import EquipmentListings from "./Components/equipment-listings";
+import CustomerOrders from "./Components/customer-orders";
+import CustomerList from "./Components/customer-list";
+import SalesReps from "./Components/sales-reps";
+import Transactions from "./Components/transaction";
+import DrawerMenu from "./Components/side-menu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBars,
+} from "@fortawesome/free-solid-svg-icons";
+
+import "./App.css";
+import "./index.css";
 
 function App() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="header">
+        <div className="square"> </div>
+        <h1>ASH'S AUCTION'S C.R.M.</h1>
+        <h3>Building dreams, one bid at a time.</h3>
+      </div>
+
+      <DrawerMenu />
+
+      <div className="content">
+        <Routes>
+          <Route path="/equipment-types" element={<EquipmentTypes />} />
+          <Route path="/equipment-listings" element={<EquipmentListings />} />
+          <Route path="/customer-orders" element={<CustomerOrders />} />
+          <Route path="/customer-list" element={<CustomerList />} />
+          <Route path="/sales-reps" element={<SalesReps />} />
+          <Route path="/transactions" element={<Transactions />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
