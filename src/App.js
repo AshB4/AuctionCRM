@@ -28,27 +28,27 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="header">
-        <div className="square"> </div>
-        <h1>ASH'S AUCTION'S C.R.M.</h1>
-        <h3>Building dreams, one bid at a time.</h3>
-      </div>
+		<Router>
+			<div className="headers">
+				<div className="square"> </div>
+				<h1>ASH'S AUCTION'S C.R.M.</h1>
+				<h3>Building dreams,<p> one bid at a time.</p></h3>
+			</div>
 
-      <DrawerMenu />
+			<DrawerMenu />
 
-      <div className="content">
-        <Routes>
-          <Route path="/equipment-types" element={<EquipmentTypes />} />
-          <Route path="/equipment-listings" element={<EquipmentListings />} />
-          <Route path="/customer-orders" element={<CustomerOrders />} />
-          <Route path="/customer-list" element={<CustomerList />} />
-          <Route path="/sales-reps" element={<SalesReps />} />
-          <Route path="/transactions" element={<Transactions />} />
-        </Routes>
-      </div>
-    </Router>
-  );
+			<div className="content">
+				<Routes>
+					<Route path="/equipment-types" element={<EquipmentTypes />} />
+					<Route path="/equipment-listings" element={<EquipmentListings />} />
+					<Route path="/customer-orders" element={<CustomerOrders />} />
+					<Route path="/customer-list" element={<CustomerList />} />
+					<Route path="/sales-reps" element={<SalesReps />} />
+					<Route path="/transactions" element={<Transactions />} />
+				</Routes>
+			</div>
+		</Router>
+	);
 }
 
 export default App;
