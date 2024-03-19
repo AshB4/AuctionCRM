@@ -43,8 +43,9 @@ code {
 display: flex;
   justify-content: space-between;
   flex-direction: row;
-  width:auto;
+  width: auto;
   margin: 5px ;
+  
 }
 
 .inputs {
@@ -53,12 +54,12 @@ display: flex;
 
 .inputs input {
   width: 100%;
-  padding: 10px;
+  padding: 10px ;
   border: 1px solid var(--accent-silver);
   border-radius: 5px;
   box-sizing: border-box;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .buttons {

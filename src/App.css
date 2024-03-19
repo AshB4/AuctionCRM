@@ -165,7 +165,7 @@ Media Q's
 
  table td {
    border: 1px solid var(--accent-timberWolf);
-   padding: 8px;
+   padding: 10px;
  }
 
  table {
@@ -181,7 +181,7 @@ Media Q's
  /* table data */
  td {
    border: 2px solid var(--primary-black);
-   padding: 8px;
+   padding: 10px;
  }
 
  .table-container {

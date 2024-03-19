@@ -25,7 +25,7 @@ function CustomerList() {
 		setError(null);
 
 		try {
-			const data = await fetchCustomers(); // Call the fetchCustomers function
+			const data = await fetchCustomers(); 
 			setCustomers(data);
 		} catch (error) {
 			console.error("Error fetching customers:", error);
@@ -36,8 +36,8 @@ function CustomerList() {
 	};
 
 	useEffect(() => {
-		fetchData(); // Call the fetchData function when the component mounts
-	}, []); // Empty dependency array to run the effect only once
+		fetchData(); 
+	}, []); 
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -137,46 +137,6 @@ function CustomerList() {
 							<button className="buttons" onClick={handleDeleteCustomer}>DELETE</button>
             </div>
 					</div>
-
-					{/* {customers.map((customer) => (
-						<div key={customer.id}>
-							<div className="yellow-button">
-								<button
-									className="buttons"
-									onClick={() => handleUpdateCustomer(customer.id)}>
-									Delete
-								</button>
-							</div>
-							<div className="yellow-button">
-								<button
-									className="buttons"
-									onClick={() =>
-										handleUpdateCustomer(customer.id, {
-											name: newCustomerData.name,
-											contact: newCustomerData.contact,
-											email: newCustomerData.email,
-											phone: newCustomerData.phone,
-										})
-									}>
-									Update
-								</button>
-							</div>
-							<div className="yellow-button">
-								<button
-									className="buttons"
-									onClick={() =>
-										handleUpdateCustomer(customer.id, {
-											name: newCustomerData.name,
-											contact: newCustomerData.contact,
-											email: newCustomerData.email,
-											phone: newCustomerData.phone,
-										})
-									}>
-									Save
-								</button>
-							</div>
-						</div>
-					))} */}
 					{isLoading && <p>Loading customers...</p>}
 					{error && (
 						<div className="error-container">

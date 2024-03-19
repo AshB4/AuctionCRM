@@ -1,4 +1,3 @@
-/** @format */
 
 import axios from "axios";
 
@@ -37,16 +36,12 @@ async function updateCustomerOrder(orderId, updatedData) {
 async function deleteCustomerOrder(orderId) {
 	try {
 		await axios.delete(`${API_BASE_URL}/${orderId}`);
-		return true; // Or you can return some indication of success
+		return true; 
 	} catch (error) {
 		console.error("Error deleting customer order:", error);
 		throw new Error("An error occurred while deleting the customer order.");
 	}
 }
 
-export {
-	fetchCustomerOrders,
-	createCustomerOrder,
-	updateCustomerOrder,
-	deleteCustomerOrder,
-};
+export default {
+	fetchCustomerOrders, createCustomerOrder, updateCustomerOrder,deleteCustomerOrder};
