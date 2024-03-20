@@ -74,102 +74,106 @@ function CustomerList() {
 		}
 	};
 
-	const handleUpdateCustomer = async (customerId, updatedData) => {
-		try {
-			await updateCustomer(customerId, updatedData);
-			fetchData();
-		} catch (error) {
-			console.error("Error updating customer:", error);
-			setError("An error occurred while updating the customer.");
-		}
-	};
+	// const handleUpdateCustomer = async (customerId, updatedData) => {
+	// 	try {
+	// 		await updateCustomer(customerId, updatedData);
+	// 		fetchData();
+	// 	} catch (error) {
+	// 		console.error("Error updating customer:", error);
+	// 		setError("An error occurred while updating the customer.");
+	// 	}
+	// };
 
 	return (
-    <div className="topDiv">
-		<div className="container">
-			<div className="titles">
-				<h2 className="form-titles">CUSTOMER LIST</h2>
-			</div>
-			<br />
-			<div className="sections">
-				<div>
-					<br />
-					<h3>EDIT INFORMATION:</h3>
-					<div className="inputs-form">
-						<div className="inputs">
-							<input
-								type="text"
-								name="name"
-								value={newCustomerData.name}
-								onChange={handleInputChange}
-								placeholder="Name"
-							/>
+		<div className="topDiv">
+			<div className="container">
+				<div className="titles">
+					<h2 className="form-titles">CUSTOMER LIST</h2>
+				</div>
+				<br />
+				<div className="sections">
+					<div>
+						<br />
+						<h3>EDIT INFORMATION:</h3>
+						{isLoading && <p>Loading customers...</p>}
+						{error && (
+							<div className="error-container">
+								<p className="error">{error}</p>
+							</div>
+						)}
+						<div className="inputs-form">
+							<div className="inputs">
+								<input
+									type="text"
+									name="name"
+									value={newCustomerData.name}
+									onChange={handleInputChange}
+									placeholder="Name"
+								/>
+							</div>
+							<div className="inputs">
+								<input
+									type="text"
+									name="contact"
+									value={newCustomerData.contact}
+									onChange={handleInputChange}
+									placeholder="Contact"
+								/>
+							</div>
+							<div className="inputs">
+								<input
+									type="email"
+									name="email"
+									value={newCustomerData.email}
+									onChange={handleInputChange}
+									placeholder="Email"
+								/>
+							</div>
+							<div className="inputs">
+								<input
+									type="tel"
+									name="phone"
+									value={newCustomerData.phone}
+									onChange={handleInputChange}
+									placeholder="Phone"
+								/>
+							</div>
+							<div className="yellow-button">
+								<button className="buttons" onClick={handleAddCustomer}>
+									UPDATE
+								</button>
+								<button className="buttons" onClick={handleDeleteCustomer}>
+									DELETE
+								</button>
+							</div>
 						</div>
-						<div className="inputs">
-							<input
-								type="text"
-								name="contact"
-								value={newCustomerData.contact}
-								onChange={handleInputChange}
-								placeholder="Contact"
-							/>
-						</div>
-						<div className="inputs">
-							<input
-								type="email"
-								name="email"
-								value={newCustomerData.email}
-								onChange={handleInputChange}
-								placeholder="Email"
-							/>
-						</div>
-						<div className="inputs">
-							<input
-								type="tel"
-								name="phone"
-								value={newCustomerData.phone}
-								onChange={handleInputChange}
-								placeholder="Phone"
-							/>
-						</div>
-						<div className="yellow-button">
-							<button className="buttons" onClick={handleAddCustomer}>UPDATE</button>
-							<button className="buttons" onClick={handleDeleteCustomer}>DELETE</button>
-            </div>
-					</div>
-					{isLoading && <p>Loading customers...</p>}
-					{error && (
-						<div className="error-container">
-							<p className="error">{error}</p>
-						</div>
-					)}
-					<br />
-					<table>
-						<thead>
-							<tr>
-								<th>Customer ID</th>
-								<th>Name</th>
-								<th>Contact</th>
-								<th>Email</th>
-								<th>Phone</th>
-							</tr>
-						</thead>
-						<tbody>
-							{customers.map((customer) => (
-								<tr key={customer.id}>
-									<td>{customer.id}</td>
-									<td>{customer.name}</td>
-									<td>{customer.contact}</td>
-									<td>{customer.email}</td>
-									<td>{customer.phone}</td>
+						<br />
+						<table>
+							<thead>
+								<tr>
+									<th>Customer ID</th>
+									<th>Name</th>
+									<th>Contact</th>
+									<th>Email</th>
+									<th>Phone</th>
 								</tr>
-							))}
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								{customers.map((customer) => (
+									<tr key={customer.id}>
+										<td>{customer.id}</td>
+										<td>{customer.name}</td>
+										<td>{customer.contact}</td>
+										<td>{customer.email}</td>
+										<td>{customer.phone}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-    </div>
 	);
 }
 

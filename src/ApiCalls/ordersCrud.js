@@ -1,3 +1,4 @@
+/** @format */
 
 import axios from "axios";
 
@@ -23,9 +24,12 @@ async function createCustomerOrder(orderData) {
 	}
 }
 
-async function updateCustomerOrder(orderId, updatedData) {
+async function updateCustomerOrder(order_ID, updatedData) {
 	try {
-		const response = await axios.put(`${API_BASE_URL}/${orderId}`, updatedData);
+		const response = await axios.put(
+			`${API_BASE_URL}/${order_ID}`,
+			updatedData
+		);
 		return response.data;
 	} catch (error) {
 		console.error("Error updating customer order:", error);
@@ -33,15 +37,19 @@ async function updateCustomerOrder(orderId, updatedData) {
 	}
 }
 
-async function deleteCustomerOrder(orderId) {
+async function deleteCustomerOrder(order_ID) {
 	try {
-		await axios.delete(`${API_BASE_URL}/${orderId}`);
-		return true; 
+		await axios.delete(`${API_BASE_URL}/${order_ID}`);
+		return true;
 	} catch (error) {
 		console.error("Error deleting customer order:", error);
 		throw new Error("An error occurred while deleting the customer order.");
 	}
 }
 
-export default {
-	fetchCustomerOrders, createCustomerOrder, updateCustomerOrder,deleteCustomerOrder};
+export {
+	fetchCustomerOrders,
+	createCustomerOrder,
+	updateCustomerOrder,
+	deleteCustomerOrder,
+};
