@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000/api/customer";
+const API_BASE_URL = "http://localhost:8000/customer";
 
 async function fetchCustomers() {
   try {

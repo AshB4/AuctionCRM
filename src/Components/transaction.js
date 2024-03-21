@@ -10,7 +10,7 @@ import {
 } from "../ApiCalls/transactionsCrud";
 
 function Transactions() {
-  const [orders, setOrders] = useEffect([]);
+	const [orders, setOrders] = useState([]);
 	const [transactions, setTransactions] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ function Transactions() {
 
 		try {
 			const data = await fetchTransactions();
-			setTransactions(data);
+			setTransactions(data || []); // Ensure that data is not undefined
 		} catch (error) {
 			console.error("Error fetching transactions:", error);
 			setError("An error occurred while fetching transactions.");
@@ -37,27 +37,8 @@ function Transactions() {
 	};
 
 	useEffect(() => {
-		const fetchOrders = async () => {
-			try {
-				const response = await fetch(
-					"http://localhost:8000/api/customer/orders/",
-					{
-						method: "GET",
-						headers: {
-							Origin: "http://localhost:3000",
-							// Add other headers as needed
-						},
-					}
-				);
-				const data = await response.json();
-				setOrders(data);
-			} catch (error) {
-				console.error("Error fetching orders:", error);
-			}
-		};
-
-		fetchOrders();
-	}, []); 
+		fetchData(); // Fetch transactions when component mounts
+	}, []);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -70,7 +51,7 @@ function Transactions() {
 	const handleAddTransaction = async () => {
 		try {
 			await createTransaction(newTransactionData);
-			fetchData();
+			fetchData(); // Fetch transactions after adding a new one
 			setNewTransactionData({
 				order_id: "",
 				payment_method: "",
@@ -86,22 +67,23 @@ function Transactions() {
 	const handleDeleteTransaction = async (transactionId) => {
 		try {
 			await deleteTransaction(transactionId);
-			fetchData();
+			fetchData(); // Fetch transactions after deleting one
 		} catch (error) {
 			console.error("Error deleting transaction:", error);
 			setError("An error occurred while deleting the transaction.");
 		}
 	};
 
-  	const handleUpdateTransaction = async (transactionId) => {
-			try {
-				await updateTransaction(transactionId);
-				fetchData();
-			} catch (error) {
-				console.error("Error updating transaction:", error);
-				setError("An error occurred while updating the transaction.");
-			}
-		};
+	const handleUpdateTransaction = async (transactionId) => {
+		try {
+			await updateTransaction(transactionId);
+			fetchData(); // Fetch transactions after updating one
+		} catch (error) {
+			console.error("Error updating transaction:", error);
+			setError("An error occurred while updating the transaction.");
+		}
+	};
+
 	return (
 		<div className="container">
 			<h2 className="centered">Transactions</h2>
@@ -160,9 +142,7 @@ function Transactions() {
 							UPDATE
 						</button>
 					</div>
-					<button
-						className="buttons"
-						onClick={ handleDeleteTransaction}>
+					<button className="buttons" onClick={handleDeleteTransaction}>
 						DELETE
 					</button>
 				</div>

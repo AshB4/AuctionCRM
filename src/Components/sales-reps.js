@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
 	fetchSalesReps,
 	createSalesRep,
@@ -10,7 +9,6 @@ import {
 } from "../ApiCalls/repsCrud";
 
 function SalesReps() {
-  const [orders, setOrders] = useEffect([]);
 	const [salesReps, setSalesReps] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -19,6 +17,10 @@ function SalesReps() {
 		email: "",
 		phone: "",
 	});
+
+	useEffect(() => {
+		fetchData();
+	}, []);
 
 	const fetchData = async () => {
 		setIsLoading(true);
@@ -34,29 +36,6 @@ function SalesReps() {
 			setIsLoading(false);
 		}
 	};
-
-	useEffect(() => {
-		const fetchOrders = async () => {
-			try {
-				const response = await fetch(
-					"http://localhost:8000/api/customer/orders/",
-					{
-						method: "GET",
-						headers: {
-							Origin: "http://localhost:3000",
-							// Add other headers as needed
-						},
-					}
-				);
-				const data = await response.json();
-				setOrders(data);
-			} catch (error) {
-				console.error("Error fetching orders:", error);
-			}
-		};
-
-		fetchOrders();
-	}, []); 
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -91,15 +70,13 @@ function SalesReps() {
 		}
 	};
 
-  const handleUpdateSalesRep = async (repId) => {
+	const handleUpdateSalesRep = async (repId) => {
 		try {
 			await updateSalesRep(repId);
 			fetchData();
 		} catch (error) {
 			console.error("Error updating sales representative:", error);
-			setError(
-				"An error occurred while updating the sales representative."
-			);
+			setError("An error occurred while updating the sales representative.");
 		}
 	};
 
@@ -109,7 +86,7 @@ function SalesReps() {
 			<div className="sections">
 				<div>
 					<br />
-					<h3>EDIT REPRESENTATIVES : </h3>
+					<h3>EDIT REPRESENTATIVES:</h3>
 				</div>
 				{isLoading && <p>Loading sales representatives...</p>}
 				{/* Display messages */}
@@ -152,9 +129,7 @@ function SalesReps() {
 							UPDATE
 						</button>
 					</div>
-					<button
-						className="buttons"
-						onClick={ handleDeleteSalesRep}>
+					<button className="buttons" onClick={handleDeleteSalesRep}>
 						DELETE
 					</button>
 				</div>

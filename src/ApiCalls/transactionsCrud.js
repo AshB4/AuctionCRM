@@ -2,7 +2,9 @@
 
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000/api/transactions";
+// Enhanced API Base URL with environment variable consideration
+const API_BASE_URL =
+	process.env.REACT_APP_API_URL || "http://localhost:8000/transactions/";
 
 async function fetchTransactions() {
 	try {
@@ -40,7 +42,7 @@ async function updateTransaction(transactionId, updatedData) {
 async function deleteTransaction(transactionId) {
 	try {
 		await axios.delete(`${API_BASE_URL}/${transactionId}`);
-		return true; // Or you can return some indication of success
+		return true; // Or you can return a more specific success message
 	} catch (error) {
 		console.error("Error deleting transaction:", error);
 		throw new Error("An error occurred while deleting the transaction.");

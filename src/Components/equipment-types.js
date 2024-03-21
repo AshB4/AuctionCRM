@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
 	fetchEquipmentTypes,
 	createEquipmentType,
@@ -10,7 +9,6 @@ import {
 } from "../ApiCalls/typesCrud";
 
 function EquipmentTypes() {
-  const [orders, setOrders] = useEffect([]);
 	const [equipmentTypes, setEquipmentTypes] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -34,27 +32,8 @@ function EquipmentTypes() {
 	};
 
 	useEffect(() => {
-		const fetchOrders = async () => {
-			try {
-				const response = await fetch(
-					"http://localhost:8000/api/customer/orders/",
-					{
-						method: "GET",
-						headers: {
-							Origin: "http://localhost:3000",
-							// Add other headers as needed
-						},
-					}
-				);
-				const data = await response.json();
-				setOrders(data);
-			} catch (error) {
-				console.error("Error fetching orders:", error);
-			}
-		};
-
-		fetchOrders();
-	}, []); 
+		fetchData();
+	}, []);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -77,19 +56,8 @@ function EquipmentTypes() {
 		}
 	};
 
-  const handleUpdateEquipmentType = async (typeId) => {
+	const handleDeleteEquipmentType = async (typeId) => {
 		try {
-			await updateEquipmentType(typeId);
-			fetchData();
-		} catch (error) {
-			console.error("Error updating equipment type:", error);
-			setError("An error occurred while updating the equipment type.");
-		}
-	};
-
-
-  const handleDeleteEquipmentType = async (typeId) => {
-		try {     
 			await deleteEquipmentType(typeId);
 			fetchData();
 		} catch (error) {
@@ -136,9 +104,7 @@ function EquipmentTypes() {
 							ADD
 						</button>
 					</div>
-					<button
-						className="buttons"
-						onClick={handleDeleteEquipmentType}>
+					<button className="buttons" onClick={handleDeleteEquipmentType}>
 						DELETE
 					</button>
 				</div>

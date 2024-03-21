@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
 	fetchCustomers,
 	createCustomer,
@@ -10,7 +9,6 @@ import {
 } from "../ApiCalls/customerCrud";
 
 function CustomerList() {
-	const [orders, setOrders] = useState([]);
 	const [customers, setCustomers] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -26,7 +24,7 @@ function CustomerList() {
 		setError(null);
 
 		try {
-			const data = await fetchCustomers(); 
+			const data = await fetchCustomers();
 			setCustomers(data);
 		} catch (error) {
 			console.error("Error fetching customers:", error);
@@ -37,27 +35,8 @@ function CustomerList() {
 	};
 
 	useEffect(() => {
-		const fetchOrders = async () => {
-			try {
-				const response = await fetch(
-					"http://localhost:8000/api/customer/orders/",
-					{
-						method: "GET",
-						headers: {
-							Origin: "http://localhost:3000",
-							// Add other headers as needed
-						},
-					}
-				);
-				const data = await response.json();
-				setOrders(data);
-			} catch (error) {
-				console.error("Error fetching orders:", error);
-			}
-		};
-
-		fetchOrders();
-	}, []); 
+		fetchData();
+	}, []);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -70,9 +49,8 @@ function CustomerList() {
 	const handleAddCustomer = async () => {
 		try {
 			await createCustomer(newCustomerData);
-			fetch();
+			fetchData();
 			setNewCustomerData({
-				// Resets input fields after adding customer
 				name: "",
 				contact: "",
 				email: "",
@@ -94,23 +72,6 @@ function CustomerList() {
 		}
 	};
 
-	const handleUpdateCustomer = async (customerId) => {
-		try {
-			await updateCustomer(customerId, newCustomerData);
-			fetchData();
-			setNewCustomerData({
-				name: "",
-				contact: "",
-				email: "",
-				phone: "",
-			});
-		} catch (error) {
-			console.error("Error updating customer:", error);
-			setError("An error occurred while updating the customer.");
-		}
-	};
-
-
 	return (
 		<div className="topDiv">
 			<div className="container">
@@ -129,6 +90,7 @@ function CustomerList() {
 							</div>
 						)}
 						<div className="inputs-form">
+							{/* Input fields for new customer data */}
 							<div className="inputs">
 								<input
 									type="text"
@@ -167,10 +129,7 @@ function CustomerList() {
 							</div>
 							<div className="yellow-button">
 								<button className="buttons" onClick={handleAddCustomer}>
-									UPDATE
-								</button>
-								<button className="buttons" onClick={handleDeleteCustomer}>
-									DELETE
+									ADD CUSTOMER
 								</button>
 							</div>
 						</div>
@@ -183,6 +142,7 @@ function CustomerList() {
 									<th>Contact</th>
 									<th>Email</th>
 									<th>Phone</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -193,6 +153,11 @@ function CustomerList() {
 										<td>{customer.contact}</td>
 										<td>{customer.email}</td>
 										<td>{customer.phone}</td>
+										<td>
+											<button onClick={() => handleDeleteCustomer(customer.id)}>
+												Delete
+											</button>
+										</td>
 									</tr>
 								))}
 							</tbody>
@@ -205,4 +170,3 @@ function CustomerList() {
 }
 
 export default CustomerList;
-//saved to notes for this file an alt version. may be due to they all say customer and not update,del,etc;
