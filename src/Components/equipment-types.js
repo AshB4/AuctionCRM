@@ -10,6 +10,7 @@ import {
 } from "../ApiCalls/typesCrud";
 
 function EquipmentTypes() {
+  const [orders, setOrders] = useEffect([]);
 	const [equipmentTypes, setEquipmentTypes] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -33,8 +34,27 @@ function EquipmentTypes() {
 	};
 
 	useEffect(() => {
-		fetchData();
-	}, []);
+		const fetchOrders = async () => {
+			try {
+				const response = await fetch(
+					"http://localhost:8000/api/customer/orders/",
+					{
+						method: "GET",
+						headers: {
+							Origin: "http://localhost:3000",
+							// Add other headers as needed
+						},
+					}
+				);
+				const data = await response.json();
+				setOrders(data);
+			} catch (error) {
+				console.error("Error fetching orders:", error);
+			}
+		};
+
+		fetchOrders();
+	}, []); 
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import {
-  BrowserRouter as Router,
+	BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
 import EquipmentTypes from "./Components/equipment-types";
 import EquipmentListings from "./Components/equipment-listings";
@@ -12,11 +11,6 @@ import CustomerList from "./Components/customer-list";
 import SalesReps from "./Components/sales-reps";
 import Transactions from "./Components/transaction";
 import DrawerMenu from "./Components/side-menu";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
-
 import "./App.css";
 import "./index.css";
 

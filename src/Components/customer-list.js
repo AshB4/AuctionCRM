@@ -10,6 +10,7 @@ import {
 } from "../ApiCalls/customerCrud";
 
 function CustomerList() {
+	const [orders, setOrders] = useState([]);
 	const [customers, setCustomers] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -36,7 +37,26 @@ function CustomerList() {
 	};
 
 	useEffect(() => {
-		fetchData(); 
+		const fetchOrders = async () => {
+			try {
+				const response = await fetch(
+					"http://localhost:8000/api/customer/orders/",
+					{
+						method: "GET",
+						headers: {
+							Origin: "http://localhost:3000",
+							// Add other headers as needed
+						},
+					}
+				);
+				const data = await response.json();
+				setOrders(data);
+			} catch (error) {
+				console.error("Error fetching orders:", error);
+			}
+		};
+
+		fetchOrders();
 	}, []); 
 
 	const handleInputChange = (e) => {
@@ -74,15 +94,22 @@ function CustomerList() {
 		}
 	};
 
-	// const handleUpdateCustomer = async (customerId, updatedData) => {
-	// 	try {
-	// 		await updateCustomer(customerId, updatedData);
-	// 		fetchData();
-	// 	} catch (error) {
-	// 		console.error("Error updating customer:", error);
-	// 		setError("An error occurred while updating the customer.");
-	// 	}
-	// };
+	const handleUpdateCustomer = async (customerId) => {
+		try {
+			await updateCustomer(customerId, newCustomerData);
+			fetchData();
+			setNewCustomerData({
+				name: "",
+				contact: "",
+				email: "",
+				phone: "",
+			});
+		} catch (error) {
+			console.error("Error updating customer:", error);
+			setError("An error occurred while updating the customer.");
+		}
+	};
+
 
 	return (
 		<div className="topDiv">
