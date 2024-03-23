@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000/customer";
+const API_BASE_URL =
+	process.env.REACT_APP_API_URL ||
+	// "http://127.0.0.1/customer/" ||
+	"http://127.0.0.1/customers/"; 
 
 async function fetchCustomers() {
   try {
@@ -22,10 +25,10 @@ async function createCustomer(customerData) {
   }
 }
 
-async function updateCustomer(customerId, updatedData) {
+async function updateCustomer(customers, updatedData) {
   try {
     const response = await axios.put(
-      `${API_BASE_URL}/${customerId}`,
+      `${API_BASE_URL}/${customers}`,
       updatedData
     );
     return response.data;
@@ -35,9 +38,9 @@ async function updateCustomer(customerId, updatedData) {
   }
 }
 
-async function deleteCustomer(customerId) {
+async function deleteCustomer(customers) {
   try {
-    await axios.delete(`${API_BASE_URL}/${customerId}`);
+    await axios.delete(`${API_BASE_URL}/${customers}`);
     return true; // Or you can return some indication of success
   } catch (error) {
     console.error("Error deleting customer:", error);

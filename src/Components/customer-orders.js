@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import {
 	fetchCustomerOrders,
 	createCustomerOrder,
@@ -34,7 +34,7 @@ function CustomerOrders() {
 			const fetchOrders = async () => {
 				try {
 					const response = await fetch(
-						"http://localhost:8000/api/customer/orders/",
+						"http://127.0.0.1:8000/customer/orders/",
 						{
 							method: "GET",
 							headers: {

@@ -13,7 +13,8 @@ function EquipmentTypes() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [newEquipmentTypeData, setNewEquipmentTypeData] = useState({
-		type: "",
+		type_id: "",
+    type_name: "",
 	});
 
 	const fetchData = async () => {
@@ -46,10 +47,11 @@ function EquipmentTypes() {
 	const handleAddEquipmentType = async () => {
 		try {
 			await createEquipmentType(newEquipmentTypeData);
-			fetchData();
 			setNewEquipmentTypeData({
-				type: "",
+				type_id: "",
+        type_name: "",
 			});
+			fetchData();
 		} catch (error) {
 			console.error("Error creating equipment type:", error);
 			setError("An error occurred while creating the equipment type.");
@@ -84,17 +86,17 @@ function EquipmentTypes() {
 					<div className="inputs">
 						<input
 							type="number"
-							name="ID"
-							value={newEquipmentTypeData.ID}
+							name="type_id"
+							value={newEquipmentTypeData.type_id}
 							onChange={handleInputChange}
-							placeholder="Id number"
+							placeholder="ID"
 						/>
 					</div>
 					<div className="inputs">
 						<input
 							type="text"
-							name="type"
-							value={newEquipmentTypeData.type}
+							name="type_name"
+							value={newEquipmentTypeData.type_name}
 							onChange={handleInputChange}
 							placeholder="Type"
 						/>
@@ -103,10 +105,13 @@ function EquipmentTypes() {
 						<button className="buttons" onClick={handleAddEquipmentType}>
 							ADD
 						</button>
-					</div>
-					<button className="buttons" onClick={handleDeleteEquipmentType}>
+				
+					<button
+						className="buttons"
+						onClick={() => handleDeleteEquipmentType(equipmentTypes[0]?.id)}>
 						DELETE
 					</button>
+          </div>
 				</div>
 				<table>
 					<thead>
@@ -119,8 +124,8 @@ function EquipmentTypes() {
 						{equipmentTypes.map((type) => (
 							<tr key={type.id}>
 								{/* Ensure unique key */}
-								<td>{type.id}</td>
-								<td>{type.type}</td>
+								<td>{type.type_id}</td>
+								<td>{type.type_name}</td>
 								<td></td>
 							</tr>
 						))}

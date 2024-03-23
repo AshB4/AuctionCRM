@@ -2,7 +2,8 @@
 
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000/api/equipment-listings";
+const API_BASE_URL =
+	process.env.REACT_APP_API_URL || "http://127.0.0.1:8000/equipment/listings/";
 
 async function fetchEquipmentListings() {
 	try {

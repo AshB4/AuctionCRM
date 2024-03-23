@@ -26,11 +26,11 @@ async function createTransaction(transactionData) {
 	}
 }
 
-async function updateTransaction(transactionId, updatedData) {
+async function updateTransaction(transactionId, newTransactionData) {
 	try {
 		const response = await axios.put(
-			`${API_BASE_URL}/${transactionId}`,
-			updatedData
+			`${API_BASE_URL}/transactions/${transactionId}`,
+			newTransactionData
 		);
 		return response.data;
 	} catch (error) {
@@ -39,10 +39,10 @@ async function updateTransaction(transactionId, updatedData) {
 	}
 }
 
-async function deleteTransaction(transactionId) {
+async function deleteTransaction(transactionId,updatedData ) {
 	try {
-		await axios.delete(`${API_BASE_URL}/${transactionId}`);
-		return true; // Or you can return a more specific success message
+		await axios.delete(`${API_BASE_URL}/${transactionId}/`);
+		return true; 
 	} catch (error) {
 		console.error("Error deleting transaction:", error);
 		throw new Error("An error occurred while deleting the transaction.");

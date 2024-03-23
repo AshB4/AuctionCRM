@@ -13,6 +13,7 @@ function SalesReps() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [newSalesRepData, setNewSalesRepData] = useState({
+    rep_id:"",
 		name: "",
 		email: "",
 		phone: "",
@@ -50,6 +51,7 @@ function SalesReps() {
 			await createSalesRep(newSalesRepData);
 			fetchData();
 			setNewSalesRepData({
+				rep_id: "",
 				name: "",
 				email: "",
 				phone: "",
@@ -100,6 +102,15 @@ function SalesReps() {
 					<div className="inputs">
 						<input
 							type="text"
+							name="rep_id"
+							value={newSalesRepData.rep_id}
+							onChange={handleInputChange}
+							placeholder="Rep ID"
+						/>
+					</div>
+					<div className="inputs">
+						<input
+							type="text"
 							name="name"
 							value={newSalesRepData.name}
 							onChange={handleInputChange}
@@ -128,10 +139,10 @@ function SalesReps() {
 						<button className="buttons" onClick={handleAddSalesRep}>
 							UPDATE
 						</button>
-					</div>
 					<button className="buttons" onClick={handleDeleteSalesRep}>
 						DELETE
 					</button>
+          </div>
 				</div>
 				<table>
 					<thead>
@@ -140,14 +151,12 @@ function SalesReps() {
 							<th>Name</th>
 							<th>Email</th>
 							<th>Phone</th>
-							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						{salesReps.map((rep) => (
 							<tr key={rep.id}>
-								{/* Ensure unique key */}
-								<td>{rep.id}</td>
+								<td>{rep.rep_id}</td>
 								<td>{rep.name}</td>
 								<td>{rep.email}</td>
 								<td>{rep.phone}</td>

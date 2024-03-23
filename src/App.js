@@ -34,10 +34,10 @@ function App() {
 			<div className="content">
 				<Routes>
 					<Route path="/equipment-types" element={<EquipmentTypes />} />
-					<Route path="/equipment-listings" element={<EquipmentListings />} />
-					<Route path="/customer-orders" element={<CustomerOrders />} />
+					<Route path="/equipment/listings" element={<EquipmentListings />} />
+					<Route path="/customers" element={<CustomerOrders />} />
 					<Route path="/customer-list" element={<CustomerList />} />
-					<Route path="/sales-reps" element={<SalesReps />} />
+					<Route path="/sales-representatives" element={<SalesReps />} />
 					<Route path="/transactions" element={<Transactions />} />
 				</Routes>
 			</div>

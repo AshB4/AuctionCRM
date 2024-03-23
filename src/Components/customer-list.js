@@ -13,6 +13,7 @@ function CustomerList() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [newCustomerData, setNewCustomerData] = useState({
+		customer_id: '',
 		name: "",
 		contact: "",
 		email: "",
@@ -46,11 +47,12 @@ function CustomerList() {
 		});
 	};
 
-	const handleAddCustomer = async () => {
+	const handleUpdateCustomer = async () => {
 		try {
 			await createCustomer(newCustomerData);
 			fetchData();
 			setNewCustomerData({
+				customer_id: { id: " " },
 				name: "",
 				contact: "",
 				email: "",
@@ -62,9 +64,9 @@ function CustomerList() {
 		}
 	};
 
-	const handleDeleteCustomer = async (customerId) => {
+	const handleDeleteCustomer = async (customer) => {
 		try {
-			await deleteCustomer(customerId);
+			await deleteCustomer(customer);
 			fetchData();
 		} catch (error) {
 			console.error("Error deleting customer:", error);
@@ -90,7 +92,16 @@ function CustomerList() {
 							</div>
 						)}
 						<div className="inputs-form">
-							{/* Input fields for new customer data */}
+							<div className="inputs">
+								<input
+									type="text"
+									name="customer_id"
+									value={newCustomerData.customer_id}
+									onChange={handleInputChange}
+									placeholder="Customer ID"
+								/>
+							</div>
+						<div className="inputs-form">
 							<div className="inputs">
 								<input
 									type="text"
@@ -128,8 +139,12 @@ function CustomerList() {
 								/>
 							</div>
 							<div className="yellow-button">
-								<button className="buttons" onClick={handleAddCustomer}>
+								<button className="buttons" onClick={handleUpdateCustomer}>
 									ADD CUSTOMER
+								</button>
+
+								<button className="buttons" onClick={handleDeleteCustomer}>
+									DELETE
 								</button>
 							</div>
 						</div>
@@ -142,22 +157,17 @@ function CustomerList() {
 									<th>Contact</th>
 									<th>Email</th>
 									<th>Phone</th>
-									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								{customers.map((customer) => (
-									<tr key={customer.id}>
-										<td>{customer.id}</td>
-										<td>{customer.name}</td>
-										<td>{customer.contact}</td>
-										<td>{customer.email}</td>
-										<td>{customer.phone}</td>
-										<td>
-											<button onClick={() => handleDeleteCustomer(customer.id)}>
-												Delete
-											</button>
-										</td>
+								{customers.map((customers) => (
+									<tr key={customers.id}>
+										<td>{customers.customers_id}</td>
+										<td>{customers.name}</td>
+										<td>{customers.contact}</td>
+										<td>{customers.email}</td>
+										<td>{customers.phone}</td>
+										<td></td>
 									</tr>
 								))}
 							</tbody>
@@ -165,6 +175,7 @@ function CustomerList() {
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	);
 }

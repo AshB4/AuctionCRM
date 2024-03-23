@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000/equipment-types";
+const API_BASE_URL = "http://localhost:8000/equipment/types/";
 
 async function fetchEquipmentTypes() {
 	try {
@@ -28,10 +28,10 @@ async function createEquipmentType(typeData) {
 	}
 }
 
-async function updateEquipmentType(typeId, updatedData) {
+async function updateEquipmentType(type_id, newTransactionData) {
 	try {
-		console.log("Updating equipment type with ID:", typeId);
-		const response = await axios.put(`${API_BASE_URL}/${typeId}`, updatedData);
+		console.log("Updating equipment type with ID:", type_id);
+		const response = await axios.put(`${API_BASE_URL}/${type_id}`, newTransactionData);
 		console.log("Equipment type updated successfully:", response.data);
 		return response.data;
 	} catch (error) {
@@ -40,10 +40,10 @@ async function updateEquipmentType(typeId, updatedData) {
 	}
 }
 
-async function deleteEquipmentType(typeId) {
+async function deleteEquipmentType(type_id){
 	try {
-		console.log("Deleting equipment type with ID:", typeId);
-		await axios.delete(`${API_BASE_URL}/${typeId}`);
+		console.log("Deleting equipment type with ID:", type_id);
+		await axios.delete(`${API_BASE_URL}/${type_id}`);
 		console.log("Equipment type deleted successfully.");
 		return true;
 	} catch (error) {

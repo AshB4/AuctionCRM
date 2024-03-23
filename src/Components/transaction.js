@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
 	fetchTransactions,
 	createTransaction,
@@ -15,6 +14,7 @@ function Transactions() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [newTransactionData, setNewTransactionData] = useState({
+		transaction_id: "",
 		order_id: "",
 		payment_method: "",
 		amount: "",
@@ -27,7 +27,7 @@ function Transactions() {
 
 		try {
 			const data = await fetchTransactions();
-			setTransactions(data || []); // Ensure that data is not undefined
+			setTransactions(data || []); 
 		} catch (error) {
 			console.error("Error fetching transactions:", error);
 			setError("An error occurred while fetching transactions.");
@@ -37,7 +37,7 @@ function Transactions() {
 	};
 
 	useEffect(() => {
-		fetchData(); // Fetch transactions when component mounts
+		fetchData(); 
 	}, []);
 
 	const handleInputChange = (e) => {
@@ -51,8 +51,9 @@ function Transactions() {
 	const handleAddTransaction = async () => {
 		try {
 			await createTransaction(newTransactionData);
-			fetchData(); // Fetch transactions after adding a new one
+			fetchData(); 
 			setNewTransactionData({
+        transaction_id: {id: " "},
 				order_id: "",
 				payment_method: "",
 				amount: "",
@@ -67,7 +68,7 @@ function Transactions() {
 	const handleDeleteTransaction = async (transactionId) => {
 		try {
 			await deleteTransaction(transactionId);
-			fetchData(); // Fetch transactions after deleting one
+			fetchData(); 
 		} catch (error) {
 			console.error("Error deleting transaction:", error);
 			setError("An error occurred while deleting the transaction.");
@@ -76,8 +77,8 @@ function Transactions() {
 
 	const handleUpdateTransaction = async (transactionId) => {
 		try {
-			await updateTransaction(transactionId);
-			fetchData(); // Fetch transactions after updating one
+			await updateTransaction(transactionId, newTransactionData);
+			fetchData( ); 
 		} catch (error) {
 			console.error("Error updating transaction:", error);
 			setError("An error occurred while updating the transaction.");
@@ -101,6 +102,15 @@ function Transactions() {
 				)}
 				<br />
 				<div className="inputs-form">
+					<div className="inputs">
+						<input
+							type="text"
+							name="transaction_id"
+							value={newTransactionData.transaction_id.id}
+							onChange={handleInputChange}
+							placeholder="Transaction ID"
+						/>
+					</div>
 					<div className="inputs">
 						<input
 							type="text"
@@ -137,14 +147,15 @@ function Transactions() {
 							placeholder="Status"
 						/>
 					</div>
+
 					<div className="yellow-button">
 						<button className="buttons" onClick={handleUpdateTransaction}>
 							UPDATE
 						</button>
+						<button className="buttons" onClick={handleDeleteTransaction}>
+							DELETE
+						</button>
 					</div>
-					<button className="buttons" onClick={handleDeleteTransaction}>
-						DELETE
-					</button>
 				</div>
 				<table>
 					<thead>
@@ -154,13 +165,12 @@ function Transactions() {
 							<th>Payment Method</th>
 							<th>Amount</th>
 							<th>Status</th>
-							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						{transactions.map((transaction) => (
-							<tr key={transaction.id}>
-								<td>{transaction.id}</td>
+							<tr key={transaction.transaction_id}>
+								<td>{transaction.transaction_id}</td>
 								<td>{transaction.order_id}</td>
 								<td>{transaction.payment_method}</td>
 								<td>{transaction.amount}</td>

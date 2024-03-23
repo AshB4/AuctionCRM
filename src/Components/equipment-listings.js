@@ -1,5 +1,7 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import {
 	fetchEquipmentListings,
 	createEquipmentListing,
@@ -8,11 +10,12 @@ import {
 } from "../ApiCalls/equipmentCrud";
 
 function EquipmentListings() {
-  const [orders, setOrders]= useState([])
+	const [orders, setOrders] = useState([]);
 	const [equipmentListings, setEquipmentListings] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [newListingData, setNewListingData] = useState({
+		listing_id: "",
 		type_id: "",
 		make: "",
 		model: "",
@@ -35,28 +38,27 @@ function EquipmentListings() {
 		}
 	};
 
-useEffect(() => {
-	const fetchOrders = async () => {
-		try {
-			const response = await fetch(
-				"http://localhost:8000/api/customer/orders/",
-				{
-					method: "GET",
-					headers: {
-						Origin: "http://localhost:3000",
-						// Add other headers as needed
-					},
-				}
-			);
-			const data = await response.json();
-			setOrders(data);
-		} catch (error) {
-			console.error("Error fetching orders:", error);
-		}
-	};
+	// useEffect(() => {
+	// 	const fetchOrders = async () => {
+	// 		try {
+	// 			const response = await fetch(
+	// 				"http://localhost:8000/equipment/listings/",
+	// 				{
+	// 					method: "GET",
+	// 					headers: {
+	// 						Origin: "http://localhost:8000",
+	// 					},
+	// 				}
+	// 			);
+	// 			const data = await response.json();
+	// 			setOrders(data);
+	// 		} catch (error) {
+	// 			console.error("Error fetching orders:", error);
+	// 		}
+	// 	};
 
-	fetchOrders();
-}, []); 
+		// fetchOrders();
+	// }, []);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -71,6 +73,7 @@ useEffect(() => {
 			await createEquipmentListing(newListingData);
 			fetchData();
 			setNewListingData({
+				listing_id: "",
 				type_id: "",
 				make: "",
 				model: "",
@@ -83,7 +86,7 @@ useEffect(() => {
 		}
 	};
 
-  const handleUpdateListing = async (id, updatedData) => {
+	const handleUpdateListing = async (id, updatedData) => {
 		try {
 			await updateEquipmentListing(id, updatedData);
 			fetchData();
@@ -119,6 +122,15 @@ useEffect(() => {
 							</div>
 						)}
 						<div className="inputs-form">
+							<div className="inputs">
+								<input
+									type="text"
+									name="listing_id"
+									value={newListingData.listing_id}
+									onChange={handleInputChange}
+									placeholder="Listing ID"
+								/>
+							</div>
 							<div className="inputs">
 								<input
 									type="text"
@@ -168,10 +180,10 @@ useEffect(() => {
 								<button className="buttons" onClick={handleAddListing}>
 									UPDATE
 								</button>
+								<button className="buttons" onClick={handleDeleteListing}>
+									DELETE
+								</button>
 							</div>
-							<button className="buttons" onClick={handleDeleteListing}>
-								DELETE
-							</button>
 						</div>
 						<br />
 						<table>
@@ -188,7 +200,7 @@ useEffect(() => {
 							<tbody>
 								{equipmentListings.map((listing) => (
 									<tr key={listing.id}>
-										<td>{listing.id}</td>
+										<td>{listing.listing_id}</td>
 										<td>{listing.type_id}</td>
 										<td>{listing.make}</td>
 										<td>{listing.model}</td>
