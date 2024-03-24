@@ -75,7 +75,7 @@ function CustomerList() {
 	};
 
 	return (
-		<div className="topDiv">
+		<div className="topDiv">LIST
 			<div className="container">
 				<div className="titles">
 					<h2 className="form-titles">CUSTOMER LIST</h2>
