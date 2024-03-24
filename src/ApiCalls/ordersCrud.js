@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const API_BASE_URL =
-	process.env.REACT_APP_API_URL || "http://127.0.0.1:8000/customer-list/";
+	process.env.REACT_APP_API_URL || "http://127.0.0.1:8000/customer/orders/";
 
 async function fetchCustomerOrders() {
 	try {
@@ -25,10 +25,10 @@ async function createCustomerOrder(orderData) {
 	}
 }
 
-async function updateCustomerOrder(order_ID, updatedData) {
+async function updateCustomerOrder(orderId, updatedData) {
 	try {
 		const response = await axios.put(
-			`${API_BASE_URL}/${order_ID}`,
+			`${API_BASE_URL}/${orderId}`,
 			updatedData
 		);
 		return response.data;
@@ -38,9 +38,9 @@ async function updateCustomerOrder(order_ID, updatedData) {
 	}
 }
 
-async function deleteCustomerOrder(order_ID) {
+async function deleteCustomerOrder(orderId) {
 	try {
-		await axios.delete(`${API_BASE_URL}/${order_ID}`);
+		await axios.delete(`${API_BASE_URL}/${orderId}`);
 		return true;
 	} catch (error) {
 		console.error("Error deleting customer order:", error);

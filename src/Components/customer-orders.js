@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-
 import {
 	fetchCustomerOrders,
 	createCustomerOrder,
@@ -10,13 +9,12 @@ import {
 } from "../ApiCalls/ordersCrud";
 
 function CustomerOrders() {
-	const [orders, setOrders] = useState([]);
 	const [customerOrders, setCustomerOrders] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [newCustomerData, setNewCustomerData] = useState({
-		order_ID: "",
-		listing_ID: "",
+		order_id: "",
+		listing_id: "",
 		customer: "",
 		quantity: "",
 		total_price: "",
@@ -30,30 +28,7 @@ function CustomerOrders() {
 		});
 	};
 
-	 useEffect(() => {
-			const fetchOrders = async () => {
-				try {
-					const response = await fetch(
-						"http://127.0.0.1:8000/customer/orders/",
-						{
-							method: "GET",
-							headers: {
-								Origin: "http://localhost:3000",
-								// Add other headers as needed
-							},
-						}
-					);
-					const data = await response.json();
-					setOrders(data);
-				} catch (error) {
-					console.error("Error fetching orders:", error);
-				}
-			};
-
-			fetchOrders();
-		}, []); 
-
-	async function fetchData() {
+  const fetchData = async () => {
 		try {
 			setIsLoading(true);
 			const data = await fetchCustomerOrders();
@@ -64,15 +39,19 @@ function CustomerOrders() {
 			setError("An error occurred while fetching customer orders.");
 			setIsLoading(false);
 		}
-	}
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
 
 	async function createCustomer() {
 		try {
 			await createCustomerOrder(newCustomerData);
 			fetchData();
 			setNewCustomerData({
-				order_ID: "",
-				listing_ID: "",
+				order_id: "",
+				listing_id: "",
 				customer: "",
 				quantity: "",
 				total_price: "",
@@ -83,13 +62,13 @@ function CustomerOrders() {
 		}
 	}
 
-	async function updateCustomer(order_ID) {
+	async function updateCustomer(orderId) {
 		try {
-			await updateCustomerOrder(order_ID, newCustomerData);
+			await updateCustomerOrder(orderId, newCustomerData);
 			fetchData();
 			setNewCustomerData({
-				order_ID: "",
-				listing_ID: "",
+				order_id: "",
+				listing_id: "",
 				customer: "",
 				quantity: "",
 				total_price: "",
@@ -100,9 +79,9 @@ function CustomerOrders() {
 		}
 	}
 
-	async function deleteCustomer(order_ID) {
+	async function deleteCustomer(orderId) {
 		try {
-			await deleteCustomerOrder(order_ID);
+			await deleteCustomerOrder(orderId);
 			fetchData();
 		} catch (error) {
 			console.error("Error deleting customer:", error);
@@ -129,8 +108,8 @@ function CustomerOrders() {
 							<div className="inputs">
 								<input
 									type="number"
-									name="order_ID"
-									value={newCustomerData.order_ID}
+									name="order_id"
+									value={newCustomerData.order_id}
 									onChange={handleInputChange}
 									placeholder="Order ID"
 								/>
@@ -138,8 +117,8 @@ function CustomerOrders() {
 							<div className="inputs">
 								<input
 									type="number"
-									name="listing_ID"
-									value={newCustomerData.listing_ID}
+									name="listing_id"
+									value={newCustomerData.listing_id}
 									onChange={handleInputChange}
 									placeholder="Listing ID"
 								/>
@@ -174,12 +153,12 @@ function CustomerOrders() {
 							<div className="yellow-button">
 								<button
 									className="buttons"
-									onClick={() => updateCustomer(newCustomerData.order_ID)}>
+									onClick={() => updateCustomer(newCustomerData.order_id)}>
 									UPDATE
 								</button>
 								<button
 									className="buttons"
-									onClick={() => deleteCustomer(newCustomerData.order_ID)}>
+									onClick={() => deleteCustomer(newCustomerData.order_id)}>
 									DELETE
 								</button>
 							</div>
@@ -197,8 +176,8 @@ function CustomerOrders() {
 							<tbody>
 								{customerOrders.map((order) => (
 									<tr key={order.id}>
-										<td>{order.id}</td>
-										<td>{order.listing_ID}</td>
+										<td>{order.order_id}</td>
+										<td>{order.listing_id}</td>
 										<td>{order.customer}</td>
 										<td>{order.quantity}</td>
 										<td>{order.total_price}</td>

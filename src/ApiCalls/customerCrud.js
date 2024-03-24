@@ -2,8 +2,7 @@ import axios from "axios";
 
 const API_BASE_URL =
 	process.env.REACT_APP_API_URL ||
-	// "http://127.0.0.1/customer/" ||
-	"http://127.0.0.1/customers/"; 
+	"http://127.0.0.1/customer-list/"; 
 
 async function fetchCustomers() {
   try {

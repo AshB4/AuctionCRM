@@ -10,7 +10,6 @@ import {
 } from "../ApiCalls/equipmentCrud";
 
 function EquipmentListings() {
-	const [orders, setOrders] = useState([]);
 	const [equipmentListings, setEquipmentListings] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -38,27 +37,9 @@ function EquipmentListings() {
 		}
 	};
 
-	// useEffect(() => {
-	// 	const fetchOrders = async () => {
-	// 		try {
-	// 			const response = await fetch(
-	// 				"http://localhost:8000/equipment/listings/",
-	// 				{
-	// 					method: "GET",
-	// 					headers: {
-	// 						Origin: "http://localhost:8000",
-	// 					},
-	// 				}
-	// 			);
-	// 			const data = await response.json();
-	// 			setOrders(data);
-	// 		} catch (error) {
-	// 			console.error("Error fetching orders:", error);
-	// 		}
-	// 	};
-
-		// fetchOrders();
-	// }, []);
+	useEffect(() => {
+		fetchData();
+	}, []);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -180,7 +161,9 @@ function EquipmentListings() {
 								<button className="buttons" onClick={handleAddListing}>
 									UPDATE
 								</button>
-								<button className="buttons" onClick={handleDeleteListing}>
+								<button
+									className="buttons"
+									onClick={handleDeleteListing}>
 									DELETE
 								</button>
 							</div>
@@ -199,7 +182,7 @@ function EquipmentListings() {
 							</thead>
 							<tbody>
 								{equipmentListings.map((listing) => (
-									<tr key={listing.id}>
+									<tr key={listing.listing_id}>
 										<td>{listing.listing_id}</td>
 										<td>{listing.type_id}</td>
 										<td>{listing.make}</td>

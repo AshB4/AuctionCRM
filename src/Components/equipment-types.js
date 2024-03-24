@@ -123,7 +123,6 @@ function EquipmentTypes() {
 					<tbody>
 						{equipmentTypes.map((type) => (
 							<tr key={type.id}>
-								{/* Ensure unique key */}
 								<td>{type.type_id}</td>
 								<td>{type.type_name}</td>
 								<td></td>
