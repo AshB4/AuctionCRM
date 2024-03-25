@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_BASE_URL =
 	process.env.REACT_APP_API_URL ||
-	"http://127.0.0.1/customer-list/"; 
+	"http://127.0.0.1:8000/customer-list/"; 
 
 async function fetchCustomers() {
   try {
@@ -24,10 +24,10 @@ async function createCustomer(customerData) {
   }
 }
 
-async function updateCustomer(customers, updatedData) {
+async function updateCustomer( customerId, updatedData) {
   try {
     const response = await axios.put(
-      `${API_BASE_URL}/${customers}`,
+      `${API_BASE_URL}/${customerId}`,
       updatedData
     );
     return response.data;
@@ -37,9 +37,9 @@ async function updateCustomer(customers, updatedData) {
   }
 }
 
-async function deleteCustomer(customers) {
+async function deleteCustomer(customerId) {
   try {
-    await axios.delete(`${API_BASE_URL}/${customers}`);
+    await axios.delete(`${API_BASE_URL}/${customerId}`);
     return true; // Or you can return some indication of success
   } catch (error) {
     console.error("Error deleting customer:", error);

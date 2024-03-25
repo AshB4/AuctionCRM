@@ -27,6 +27,7 @@ function CustomerList() {
 		try {
 			const data = await fetchCustomers();
 			setCustomers(data);
+			console.log(data)
 		} catch (error) {
 			console.error("Error fetching customers:", error);
 			setError("An error occurred while fetching customers.");
@@ -52,7 +53,7 @@ function CustomerList() {
 			await createCustomer(newCustomerData);
 			fetchData();
 			setNewCustomerData({
-				customer_id: { id: " " },
+				customer_id: "",
 				name: "",
 				contact: "",
 				email: "",
@@ -75,7 +76,7 @@ function CustomerList() {
 	};
 
 	return (
-		<div className="topDiv">LIST
+		<div className="topDiv">
 			<div className="container">
 				<div className="titles">
 					<h2 className="form-titles">CUSTOMER LIST</h2>
@@ -160,13 +161,13 @@ function CustomerList() {
 								</tr>
 							</thead>
 							<tbody>
-								{customers.map((customers) => (
-									<tr key={customers.id}>
-										<td>{customers.customers_id}</td>
-										<td>{customers.name}</td>
-										<td>{customers.contact}</td>
-										<td>{customers.email}</td>
-										<td>{customers.phone}</td>
+								{customers.map((customer) => (
+									<tr key={customer.customer_id}>
+										<td>{customer.customer_id}</td>
+										<td>{customer.name}</td>
+										<td>{customer.contact}</td>
+										<td>{customer.email}</td>
+										<td>{customer.phone}</td>
 										<td></td>
 									</tr>
 								))}
