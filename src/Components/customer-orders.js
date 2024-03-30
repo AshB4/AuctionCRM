@@ -45,7 +45,7 @@ function CustomerOrders() {
 		fetchData();
 	}, []);
 
-	async function createCustomer() {
+	async function createCustomerOrder() {
 		try {
 			await createCustomerOrder(newCustomerData);
 			fetchData();
