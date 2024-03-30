@@ -118,7 +118,7 @@ function SalesReps() {
 							name="rep_id"
 							value={newSalesRepData.rep_id}
 							onChange={handleInputChange}
-							placeholder="Representative ID"
+							placeholder="Rep ID"
 						/>
 					</div>
 					<div className="inputs">
@@ -172,11 +172,6 @@ function SalesReps() {
 								<td>{rep.email}</td>
 								<td>{rep.phone}</td>
 								<td>
-									{/* <button
-										className="buttons"
-										onClick={() => handleUpdateSalesRep(rep.rep_id, rep)}>
-										UPDATE
-									</button> */}
 									<button
 										className="buttons"
 										onClick={() => handleDeleteSalesRep(rep.rep_id)}>

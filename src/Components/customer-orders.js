@@ -1,6 +1,9 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { getCookie } from "../Utils/cookie";
 import {
 	fetchCustomerOrders,
 	createCustomerOrder,
@@ -9,6 +12,7 @@ import {
 } from "../ApiCalls/ordersCrud";
 
 function CustomerOrders() {
+	const { id } = useParams();
 	const [customerOrders, setCustomerOrders] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -20,18 +24,10 @@ function CustomerOrders() {
 		total_price: "",
 	});
 
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		setNewCustomerData({
-			...newCustomerData,
-			[name]: value,
-		});
-	};
-
-  const fetchData = async () => {
+	const fetchData = async () => {
 		try {
 			setIsLoading(true);
-			const data = await fetchCustomerOrders();
+			const data = await fetchCustomerOrders(id);
 			setCustomerOrders(data);
 			setIsLoading(false);
 		} catch (error) {
@@ -43,9 +39,18 @@ function CustomerOrders() {
 
 	useEffect(() => {
 		fetchData();
-	}, []);
+	}, [id]);
 
-	async function createCustomerOrder() {
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setNewCustomerData({
+			...newCustomerData,
+			[name]: value,
+		});
+	};
+
+	async function handleAddCustomerOrder() {
 		try {
 			await createCustomerOrder(newCustomerData);
 			fetchData();
@@ -56,32 +61,29 @@ function CustomerOrders() {
 				quantity: "",
 				total_price: "",
 			});
+			fetchData();
 		} catch (error) {
 			console.error("Error creating customer:", error);
 			setError("An error occurred while creating the customer.");
 		}
 	}
 
-	async function updateCustomer(orderId) {
+	async function handleUpdateCustomer(orderId) {
 		try {
 			await updateCustomerOrder(orderId, newCustomerData);
 			fetchData();
-			setNewCustomerData({
-				order_id: "",
-				listing_id: "",
-				customer: "",
-				quantity: "",
-				total_price: "",
-			});
 		} catch (error) {
 			console.error("Error updating customer:", error);
 			setError("An error occurred while updating the customer.");
 		}
 	}
 
-	async function deleteCustomer(orderId) {
+	async function handleDeleteCustomerOrder(orderId) {
 		try {
-			await deleteCustomerOrder(orderId);
+			const csrftoken = getCookie("csrftoken");
+			const headers = { "X-CSRFToken": csrftoken };
+			await axios.delete(`http://localhost:8000/customer/orders/${orderId}/`, {headers,});
+			console.log("Customer order deleted successfully");
 			fetchData();
 		} catch (error) {
 			console.error("Error deleting customer:", error);
@@ -93,6 +95,14 @@ function CustomerOrders() {
 		<div className="container">
 			<div className="sections">
 				<h2 className="centered">Customer Orders</h2>
+				<ul style={{ display: "none" }}>
+					{customerOrders.map((order) => (
+						<li key={order.order_id}>
+							<Link
+								to={`http://localhost:8000/customer/orders/${order.order_id}`}></Link>
+						</li>
+					))}
+				</ul>
 				<br />
 				<div className="sections">
 					<div>
@@ -151,15 +161,8 @@ function CustomerOrders() {
 								/>
 							</div>
 							<div className="yellow-button">
-								<button
-									className="buttons"
-									onClick={() => updateCustomer(newCustomerData.order_id)}>
-									UPDATE
-								</button>
-								<button
-									className="buttons"
-									onClick={() => deleteCustomer(newCustomerData.order_id)}>
-									DELETE
+								<button className="buttons" onClick={handleAddCustomerOrder}>
+									ADD
 								</button>
 							</div>
 						</div>
@@ -181,6 +184,11 @@ function CustomerOrders() {
 										<td>{order.customer}</td>
 										<td>{order.quantity}</td>
 										<td>{order.total_price}</td>
+										<button
+											className="buttons"
+											onClick={() => handleDeleteCustomerOrder(order.order_id)}>
+											DELETE
+										</button>
 									</tr>
 								))}
 							</tbody>
