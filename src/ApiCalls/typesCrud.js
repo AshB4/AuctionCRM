@@ -1,7 +1,7 @@
 /** @format */
 
 import axios from "axios";
-import { getCookie } from "../Utils.js/cookie";
+import { getCookie } from "../Utils/cookie";
 
 const API_BASE_URL = "http://localhost:8000/equipment/types/";
 
@@ -10,7 +10,7 @@ async function fetchEquipmentTypes() {
 	const headers = { "X-CSRFToken": csrftoken };
 	try {
 		console.log("Fetching equipment types...");
-		const response = await axios.get(API_BASE_URL, {headers});
+		const response = await axios.get(API_BASE_URL, { headers });
 		console.log("Equipment types fetched successfully:", response.data);
 		return response.data;
 	} catch (error) {
@@ -56,8 +56,6 @@ async function deleteEquipmentType(typeId) {
 		throw new Error("An error occurred while deleting the equipment type.");
 	}
 }
-
-
 
 export {
 	fetchEquipmentTypes,

@@ -1,7 +1,8 @@
-/** @format */
 
 import React, { useEffect, useState } from "react";
-
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { getCookie } from "../Utils/cookie";
 import {
 	fetchEquipmentListings,
 	createEquipmentListing,
@@ -52,7 +53,6 @@ function EquipmentListings() {
 	const handleAddListing = async () => {
 		try {
 			await createEquipmentListing(newListingData);
-			fetchData();
 			setNewListingData({
 				listing_id: "",
 				type_id: "",
@@ -61,6 +61,7 @@ function EquipmentListings() {
 				year: "",
 				price: "",
 			});
+			fetchData();
 		} catch (error) {
 			console.error("Error creating equipment listing:", error);
 			setError("An error occurred while creating the equipment listing.");
@@ -92,11 +93,26 @@ function EquipmentListings() {
 			<div className="sections">
 				<h2 className="centered">Equipment Listings</h2>
 				<br />
+				<ul style={{ display: "none" }}>
+					{equipmentListings.map((listing) => (
+						<li key={listing.listing_id}>
+							<td>{listing.listing_id}</td>
+							<td>{listing.type_id}</td>
+							<td>{listing.make}</td>
+							<td>{listing.model}</td>
+							<td>{listing.year}</td>
+							<td>{listing.price}</td>
+
+							<Link
+								to={`http://localhost:8000/equipment/listings/${listing.listing_id}`}></Link>
+						</li>
+					))}
+				</ul>
 				<div className="sections">
 					<div>
 						<br />
 						<h3>EDIT LISTING:</h3>
-						{isLoading && <p>Loading customers...</p>}
+						{isLoading && <p>Loading equipment listings...</p>}
 						{error && (
 							<div className="error-container">
 								<p className="error">{error}</p>
@@ -105,7 +121,7 @@ function EquipmentListings() {
 						<div className="inputs-form">
 							<div className="inputs">
 								<input
-									type="text"
+									type="number"
 									name="listing_id"
 									value={newListingData.listing_id}
 									onChange={handleInputChange}
@@ -141,7 +157,7 @@ function EquipmentListings() {
 							</div>
 							<div className="inputs">
 								<input
-									type="text"
+									type="number"
 									name="year"
 									value={newListingData.year}
 									onChange={handleInputChange}
@@ -150,21 +166,17 @@ function EquipmentListings() {
 							</div>
 							<div className="inputs">
 								<input
-									type="text"
+									type="number"
 									name="price"
 									value={newListingData.price}
 									onChange={handleInputChange}
 									placeholder="Price"
 								/>
 							</div>
+							{/* Include other input fields here */}
 							<div className="yellow-button">
 								<button className="buttons" onClick={handleAddListing}>
-									UPDATE
-								</button>
-								<button
-									className="buttons"
-									onClick={handleDeleteListing}>
-									DELETE
+									ADD
 								</button>
 							</div>
 						</div>
@@ -189,6 +201,12 @@ function EquipmentListings() {
 										<td>{listing.model}</td>
 										<td>{listing.year}</td>
 										<td>{listing.price}</td>
+										{/* Render other fields here */}
+										{/* <button
+											className="buttons"
+											onClick={() => handleDeleteListing(listing.listing_id)}>
+											DELETE
+										</button> */}
 									</tr>
 								))}
 							</tbody>

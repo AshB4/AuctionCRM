@@ -1,16 +1,15 @@
 /** @format */
 
-import React, { useEffect, useState,  } from "react";
-import axios from 'axios';
-import {getCookie} from "../Utils.js/cookie";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { getCookie } from "../Utils/cookie";
 import {
 	fetchEquipmentTypes,
 	createEquipmentType,
 	updateEquipmentType,
 	deleteEquipmentType,
 } from "../ApiCalls/typesCrud";
-import { Link, useParams} from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
 
 function EquipmentTypes() {
 	const { id } = useParams();
@@ -19,13 +18,9 @@ function EquipmentTypes() {
 	const [error, setError] = useState(null);
 	const [newEquipmentTypeData, setNewEquipmentTypeData] = useState({
 		type_id: "",
-    type_name: "",
-	});
-	const [deleteEquipmentTypeData, setDeleteEquipmentTypeData] = useState({
-		type_id: "",
 		type_name: "",
 	});
-
+	
 
 	const fetchData = async () => {
 		setIsLoading(true);
@@ -59,7 +54,7 @@ function EquipmentTypes() {
 			await createEquipmentType(newEquipmentTypeData);
 			setNewEquipmentTypeData({
 				type_id: "",
-        type_name: "",
+				type_name: "",
 			});
 			fetchData();
 		} catch (error) {
@@ -80,44 +75,13 @@ function EquipmentTypes() {
 		console.log(updatedData);
 	};
 
-	// const handleDeleteChange = (e) => {
-	// 	const { name, value } = e.target;
-	// 	setDeleteEquipmentTypeData({
-	// 		...deleteEquipmentTypeData,
-	// 		[name]: value,
-	// 	});
-	// };
-
-	// const handleDeleteEquipmentType = async () => {
-	// 	try {
-	// 		await deleteEquipmentType(deleteEquipmentTypeData.type_id);
-	// 		console.log("Equipment type deleted successfully");
-	// 		fetchData(); // Fetch data again after deletion
-	// 	} catch (error) {
-	// 		console.error("Error deleting equipment type:", error);
-	// 		setError("An error occurred while deleting the equipment type.");
-	// 	}
-	// };
-
-	//  const handleDeleteEquipmentType = async (typeId) => {
-	// 		try {
-	// 			await deleteEquipmentType(typeId);
-	// 			console.log("Equipment type deleted successfully");
-	// 			fetchData(); // Fetch data again after deletion
-	// 		} catch (error) {
-	// 			console.error("Error deleting equipment type:", error);
-	// 			setError("An error occurred while deleting the equipment type.");
-	// 		}
-	// 	};
-
 	const handleDeleteEquipmentType = async (typeId) => {
 		try {
 			const csrftoken = getCookie("csrftoken");
 			const headers = { "X-CSRFToken": csrftoken };
-			    await axios.delete(
-						`http://localhost:8000/equipment/types/${typeId}/`,
-						{ headers }
-					);
+			await axios.delete(`http://localhost:8000/equipment/types/${typeId}/`, {
+				headers,
+			});
 			console.log("Equipment type deleted successfully");
 			fetchData(); // Fetch data again after deletion
 		} catch (error) {

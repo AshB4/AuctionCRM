@@ -14,7 +14,6 @@ import Transactions from "./Components/transaction";
 import DrawerMenu from "./Components/side-menu";
 import "./App.css";
 import "./index.css";
-import SalesRepDetail from "./Components/sales-rep-detail";
 
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(true);
@@ -37,8 +36,6 @@ function App() {
 
 			<div className="content">
 				<Routes>
-					{/* <Route path="/equipment/types" element={<EquipmentTypes />} />
-					<Route path="/equipment/types/:id" component={EquipmentTypes} /> */}
 					<Route path="/equipment-types/" element={<EquipmentTypes />} />
 					<Route path="/equipment/listings" element={<EquipmentListings />} />
 					<Route path="/customers" element={<CustomerOrders />} />
