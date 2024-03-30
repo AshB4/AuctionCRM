@@ -11,6 +11,7 @@ import {
 } from "../ApiCalls/equipmentCrud";
 
 function EquipmentListings() {
+	const { id } = useParams();
 	const [equipmentListings, setEquipmentListings] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -28,7 +29,7 @@ function EquipmentListings() {
 		setError(null);
 
 		try {
-			const data = await fetchEquipmentListings();
+			const data = await fetchEquipmentListings(id);
 			setEquipmentListings(data);
 		} catch (error) {
 			console.error("Error fetching equipment listings:", error);
@@ -40,7 +41,7 @@ function EquipmentListings() {
 
 	useEffect(() => {
 		fetchData();
-	}, []);
+	}, [id]);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -68,9 +69,9 @@ function EquipmentListings() {
 		}
 	};
 
-	const handleUpdateListing = async (id, updatedData) => {
+	const handleUpdateListing = async (listingId, updatedData) => {
 		try {
-			await updateEquipmentListing(id, updatedData);
+			await updateEquipmentListing(listingId, updatedData);
 			fetchData();
 		} catch (error) {
 			console.error("Error updating equipment listing:", error);
@@ -78,13 +79,18 @@ function EquipmentListings() {
 		}
 	};
 
-	const handleDeleteListing = async (id) => {
+	const handleDeleteListing = async (listingId) => {
 		try {
-			await deleteEquipmentListing(id);
-			fetchData();
+			const csrftoken = getCookie("csrftoken");
+			const headers = { "X-CSRFToken": csrftoken };
+			await axios.delete(`http://localhost:8000/equipment/listings/${listingId}/`, {
+				headers,
+			});
+			console.log("Eqipment listing deleted successfully");
+			fetchData(); // Fetch data again after deletion
 		} catch (error) {
-			console.error("Error deleting equipment listing:", error);
-			setError("An error occurred while deleting the equipment listing.");
+			console.error("Error deleting sales representative:", error);
+			setError("An error occurred while deleting the sales representative.");
 		}
 	};
 
@@ -96,12 +102,12 @@ function EquipmentListings() {
 				<ul style={{ display: "none" }}>
 					{equipmentListings.map((listing) => (
 						<li key={listing.listing_id}>
-							<td>{listing.listing_id}</td>
+							{/* <td>{listing.listing_id}</td>
 							<td>{listing.type_id}</td>
 							<td>{listing.make}</td>
 							<td>{listing.model}</td>
 							<td>{listing.year}</td>
-							<td>{listing.price}</td>
+							<td>{listing.price}</td> */}
 
 							<Link
 								to={`http://localhost:8000/equipment/listings/${listing.listing_id}`}></Link>
@@ -202,11 +208,11 @@ function EquipmentListings() {
 										<td>{listing.year}</td>
 										<td>{listing.price}</td>
 										{/* Render other fields here */}
-										{/* <button
+										<button
 											className="buttons"
 											onClick={() => handleDeleteListing(listing.listing_id)}>
 											DELETE
-										</button> */}
+										</button>
 									</tr>
 								))}
 							</tbody>

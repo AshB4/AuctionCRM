@@ -20,11 +20,9 @@ async function fetchEquipmentListings() {
 }
 
 async function createEquipmentListing(listingData) {
-	const csrftoken = getCookie("csrftoken");
-	const headers = { "X-CSRFToken": csrftoken };
 	try {
 		console.log("Creating equipment listing:", listingData);
-		const response = await axios.post(API_BASE_URL, listingData, { headers });
+		const response = await axios.post(API_BASE_URL, listingData);
 		console.log("Equipment listing created successfully:", response.data);
 		return response.data;
 	} catch (error) {
@@ -34,15 +32,10 @@ async function createEquipmentListing(listingData) {
 }
 
 async function updateEquipmentListing(listing_id, updatedData) {
-	const csrftoken = getCookie("csrftoken");
-	const headers = { "X-CSRFToken": csrftoken };
 	try {
 		console.log("Updating equipment listing with ID:", listing_id);
 		const response = await axios.put(
-			`${API_BASE_URL}${listing_id}`,
-			updatedData,
-			{ headers }
-		);
+			`${API_BASE_URL}${listing_id}`,updatedData);
 		console.log("Equipment listing updated successfully:", response.data);
 		return response.data;
 	} catch (error) {
