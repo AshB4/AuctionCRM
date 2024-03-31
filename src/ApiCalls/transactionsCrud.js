@@ -1,14 +1,17 @@
 /** @format */
 
 import axios from "axios";
+import { getCookie } from "../Utils/cookie";
 
-// Enhanced API Base URL with environment variable consideration
-const API_BASE_URL =
-	process.env.REACT_APP_API_URL || "http://localhost:8000/transactions/";
+const API_BASE_URL = "http://localhost:8000/transactions/";
 
 async function fetchTransactions() {
+	const csrftoken = getCookie("csrftoken"); 
+	const headers = { "X-CSRFToken": csrftoken };
 	try {
-		const response = await axios.get(API_BASE_URL);
+		console.log("Fetching Transactions...");
+		const response = await axios.get(API_BASE_URL , {headers});
+		console.log("Transactions fetched successfully:", response.data);
 		return response.data;
 	} catch (error) {
 		console.error("Error fetching transactions:", error);
@@ -18,7 +21,9 @@ async function fetchTransactions() {
 
 async function createTransaction(transactionData) {
 	try {
+		console.log("Creating new Transaction", transactionData);
 		const response = await axios.post(API_BASE_URL, transactionData);
+		console.log("Transaction created successfully:", response.data)
 		return response.data;
 	} catch (error) {
 		console.error("Error creating transaction:", error);
@@ -26,12 +31,11 @@ async function createTransaction(transactionData) {
 	}
 }
 
-async function updateTransaction(transactionId, newTransactionData) {
+async function updateTransaction(transaction_id, updatedData) {
 	try {
-		const response = await axios.put(
-			`${API_BASE_URL}/transactions/${transactionId}`,
-			newTransactionData
-		);
+		console.log("Updating Transactions:", transaction_id)
+		const response = await axios.put(`${API_BASE_URL}/transactions/${transaction_id}`, updatedData);
+		console.log("Transaction updated successfully:" ,response.data);
 		return response.data;
 	} catch (error) {
 		console.error("Error updating transaction:", error);
@@ -39,10 +43,10 @@ async function updateTransaction(transactionId, newTransactionData) {
 	}
 }
 
-async function deleteTransaction(transactionId,updatedData ) {
+async function deleteTransaction(transactionId ) {
 	try {
-		await axios.delete(`${API_BASE_URL}/${transactionId}/`);
-		return true; 
+		const response = await axios.delete(`${API_BASE_URL}/${transactionId}/`);
+		return response.data; 
 	} catch (error) {
 		console.error("Error deleting transaction:", error);
 		throw new Error("An error occurred while deleting the transaction.");
