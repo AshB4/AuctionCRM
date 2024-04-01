@@ -263,6 +263,10 @@ Media Q's
   margin-bottom: 10px; /* Adjust as needed */
 }
 
+.icons {
+    font-size: 0;
+  }
+
 .yellow-button {
   width: 100%;
   display: flex;
@@ -305,7 +309,12 @@ Media Q's
 
 .inputs {
   width: 100%;
-  margin-bottom: 10px; /* Adjust as needed */
+  margin-bottom: 10px;
+}
+
+.icons {
+    font-size: 0; 
+  }
 }
 
 .yellow-button {
@@ -318,5 +327,3 @@ Media Q's
 .yellow-button button {
   width: 48%; /* Adjust as needed */
 }
-
-}   
