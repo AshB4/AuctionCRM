@@ -260,7 +260,7 @@ Media Q's
 
 .inputs {
   width: 100%;
-  margin-bottom: 10px; /* Adjust as needed */
+  margin-bottom: 10px; 
 }
 
 .icons {
@@ -270,12 +270,15 @@ Media Q's
 .yellow-button {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px; /* Adjust as needed */
+  justify-content: center; 
+  align-items: center; 
+
 }
 
 .yellow-button button {
-  width: 48%; /* Adjust as needed */
+  width: 70%;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -318,12 +321,14 @@ Media Q's
 }
 
 .yellow-button {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px; /* Adjust as needed */
-}
+    width: 100%; 
+  }
 
-.yellow-button button {
-  width: 48%; /* Adjust as needed */
-}
+  .yellow-button button {
+    width:100%; 
+    display: flex;
+    justify-content: center;
+    
+    
+  }
+
