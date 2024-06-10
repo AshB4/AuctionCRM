@@ -207,12 +207,13 @@ function EquipmentListings() {
 										<td>{listing.model}</td>
 										<td>{listing.year}</td>
 										<td>{listing.price}</td>
-										{/* Render other fields here */}
+										<td>
 										<button
 											className="buttons"
 											onClick={() => handleDeleteListing(listing.listing_id)}>
 											DELETE
 										</button>
+										</td>
 									</tr>
 								))}
 							</tbody>

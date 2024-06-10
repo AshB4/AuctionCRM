@@ -184,11 +184,13 @@ function CustomerOrders() {
 										<td>{order.customer}</td>
 										<td>{order.quantity}</td>
 										<td>{order.total_price}</td>
+										<td>
 										<button
 											className="buttons"
 											onClick={() => handleDeleteCustomerOrder(order.order_id)}>
 											DELETE
 										</button>
+										</td>
 									</tr>
 								))}
 							</tbody>

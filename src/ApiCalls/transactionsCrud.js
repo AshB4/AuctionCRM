@@ -20,14 +20,32 @@ async function fetchTransactions() {
 }
 
 async function createTransaction(transactionData) {
+	const csrftoken = getCookie("csrftoken"); // Get CSRF token
+	const headers = {
+		"Content-Type": "application/json",
+		"X-CSRFToken": csrftoken,
+	};
+
 	try {
 		console.log("Creating new Transaction", transactionData);
-		const response = await axios.post(API_BASE_URL, transactionData);
-		console.log("Transaction created successfully:", response.data)
+		const response = await axios.post(API_BASE_URL, transactionData, {
+			headers,
+		});
+		console.log("Transaction created successfully:", response.data);
 		return response.data;
 	} catch (error) {
 		console.error("Error creating transaction:", error);
-		throw new Error("An error occurred while creating the transaction.");
+		// Check if error.response is defined
+		if (error.response) {
+			console.error("Error response data:", error.response.data);
+			// Re-throw the error to propagate it further if needed
+			throw new Error(
+				error.response.data ||
+					"An error occurred while creating the transaction."
+			);
+		} else {
+			throw new Error("An error occurred while creating the transaction.");
+		}
 	}
 }
 

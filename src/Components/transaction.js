@@ -64,6 +64,12 @@ function Transactions() {
 			});
 		} catch (error) {
 			console.error("Error creating transaction:", error);
+			if (error.response) {
+				// If error.response is defined, log error.response.data
+				console.log("Error response data:", error.response.data);
+			} else {
+				console.log("Error response is not defined");
+			}
 			setError("An error occurred while creating the transaction.");
 		}
 	};
@@ -114,8 +120,8 @@ function Transactions() {
 				<div className="inputs-form">
 					<div className="inputs">
 						<input
-							type="text"
-							name="transaction_id"
+							type="number"
+							name="transaction_id"	
 							value={newTransactionData.transaction_id}
 							onChange={handleInputChange}
 							placeholder="Transaction ID"
