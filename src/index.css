@@ -41,12 +41,10 @@ code {
 
 .inputs-form{
 display: flex;
-  /* justify-content: space-between; */
-  flex-direction: row;
-  width: auto;
-  margin: 5px ;
-  
-}
+flex-direction: row;
+width: auto;
+margin: 5px ;
+  }
 
 .inputs {
   flex-grow: 1;

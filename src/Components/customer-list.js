@@ -82,7 +82,7 @@ const handleUpdateCustomer = async (customerId , updatedData) => {
 		try {
 			const csrftoken = getCookie("csrftoken");
 			const headers = { "X-CSRFToken": csrftoken };
-			await axios.delete(`http://localhost:8000/customer-list/${customerId}`, {
+			await axios.delete(`http://localhost:8000/customer-list/${customerId}/`, {
 				headers,
 			});
 			console.log("Customer deleted successfully");
