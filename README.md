@@ -1,70 +1,100 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project works in conjunction with the BackendForCRM, a Django-based backend. Please refer to the BackendForCRM repository for setup and running instructions.
 
-## Available Scripts
+### Backend (BackendForCRM) README
 
-In the project directory, you can run:
+```markdown
+# BackendForCRM
 
-### `npm start`
+This repository contains the backend for the AuctionCRM application, built using Django with SQLite3 and Django Rest Framework. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Table of Contents
+1. [Prerequisites](#prerequisites)
+2. [Setup Instructions](#setup-instructions)
+3. [Running the Backend Server](#running-the-backend-server)
+4. [Project Structure](#project-structure)
+5. [Contributing](#contributing)
+6. [License](#license)
+7. [Frontend Information](#frontend-information)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
+- Python (v3.8 or later)
+- pip (latest version)
+- virtualenv (latest version)
+- Git
 
-### `npm test`
+## Setup Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Clone the Repository
+```bash
+git clone https://github.com/AshB4/BackendForCRM.git
+cd BackendForCRM
+2. Create a Virtual Environment
+bash
+Copy code
+python -m venv venv
+3. Activate the Virtual Environment
+On Windows:
+bash
+Copy code
+venv\Scripts\activate
+On macOS and Linux:
+bash
+Copy code
+source venv/bin/activate
+4. Install Dependencies
+bash
+Copy code
+pip install -r requirements.txt
+5. Apply Migrations
+bash
+Copy code
+python manage.py migrate
+6. Create a Superuser
+bash
+Copy code
+python manage.py createsuperuser
+Follow the prompts to create a superuser account.
 
-### `npm run build`
+Running the Backend Server
+1. Start the Development Server
+bash
+Copy code
+python manage.py runserver
+The backend will run on http://localhost:8000.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Alternative Download Method
+If you prefer to download the backend as a ZIP file:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Download the ZIP file:
+Go to the GitHub repository for BackendForCRM and click on the "Code" button. Select "Download ZIP" to download the project as a ZIP file.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Extract the ZIP file:
+Once the ZIP file is downloaded, extract its contents to a folder on your computer.
 
-### `npm run eject`
+Navigate to the Project Folder:
+Open a terminal or command prompt and navigate to the folder where the BackendForCRM project is located.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Install Requirements and Start Server:
+Follow steps 2-7 as listed above to activate the virtual environment, install dependencies, apply migrations, create a superuser, and start the development server.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Project Structure
+bash
+Copy code
+BackendForCRM/
+├── be_crm/
+├── env/
+├── mybe/
+├── staticfiles/
+├── db.sqlite3
+├── info.py
+├── initial_data.json
+├── manage.py
+├── requirements.txt
+├── seed_db.py
+└── README.md
+Contributing
+Contributions are welcome! Please fork this repository and submit a pull request for any features, bug fixes, or enhancements.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
