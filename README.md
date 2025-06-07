@@ -1,100 +1,65 @@
+🧾 AuctionCRM
+A full-stack CRUD practice app using React and Django REST — themed as an auction client management system.
 
-This project works in conjunction with the BackendForCRM, a Django-based backend. Please refer to the BackendForCRM repository for setup and running instructions.
+🔍 Overview
+AuctionCRM is a mock CRM-style web app built to practice full-stack development using React for the front end and Django REST Framework for the backend. It allows basic Create, Read, Update, and Delete operations on client and auction item data, simulating workflows used in inventory and sales management systems.
 
-### Backend (BackendForCRM) README
+🛠️ Features
+📋 Client Management – Add, edit, delete client records
 
-```markdown
-# BackendForCRM
+📦 Auction Inventory – Manage items up for bid
 
-This repository contains the backend for the AuctionCRM application, built using Django with SQLite3 and Django Rest Framework. 
+🔁 RESTful Integration – Frontend communicates with a Django REST API
 
-## Table of Contents
-1. [Prerequisites](#prerequisites)
-2. [Setup Instructions](#setup-instructions)
-3. [Running the Backend Server](#running-the-backend-server)
-4. [Project Structure](#project-structure)
-5. [Contributing](#contributing)
-6. [License](#license)
-7. [Frontend Information](#frontend-information)
+🔐 CORS Configured – Cross-origin requests handled via django-cors-headers
 
-## Prerequisites
-- Python (v3.8 or later)
-- pip (latest version)
-- virtualenv (latest version)
-- Git
+🧪 Learning-Friendly Setup – Ideal for developers practicing full-stack CRUD workflows
 
-## Setup Instructions
+💻 Tech Stack
+Frontend:
+React.js (v18)
+Axios
+React Router
+FontAwesome Icons
+CSS3
+Backend:
+Django (3.2.12)
+Django REST Framework (DRF)
+django-cors-headers
+jsonfield for flexible model fields
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/AshB4/BackendForCRM.git
-cd BackendForCRM
-2. Create a Virtual Environment
+🚀 Getting Started
+🧩 Clone Both Repos
 bash
-Copy code
-python -m venv venv
-3. Activate the Virtual Environment
-On Windows:
+# Frontend
+git clone https://github.com/AshB4/AuctionCRM.git
+cd AuctionCRM
+npm install
+
 bash
-Copy code
-venv\Scripts\activate
-On macOS and Linux:
-bash
-Copy code
-source venv/bin/activate
-4. Install Dependencies
-bash
-Copy code
+# Backend (in a separate terminal)
+git clone https://github.com/AshB4/BackendForCrm.git
+cd BackendForCrm
 pip install -r requirements.txt
-5. Apply Migrations
-bash
-Copy code
-python manage.py migrate
-6. Create a Superuser
-bash
-Copy code
-python manage.py createsuperuser
-Follow the prompts to create a superuser account.
-
-Running the Backend Server
-1. Start the Development Server
-bash
-Copy code
 python manage.py runserver
-The backend will run on http://localhost:8000.
+⚠️ Make sure the Django server is running at http://localhost:8000 or update Axios endpoints if different.
 
-Alternative Download Method
-If you prefer to download the backend as a ZIP file:
+🔧 Frontend Environment Variables
+You can optionally create a .env file for the frontend to configure API URLs:
 
-Download the ZIP file:
-Go to the GitHub repository for BackendForCRM and click on the "Code" button. Select "Download ZIP" to download the project as a ZIP file.
-
-Extract the ZIP file:
-Once the ZIP file is downloaded, extract its contents to a folder on your computer.
-
-Navigate to the Project Folder:
-Open a terminal or command prompt and navigate to the folder where the BackendForCRM project is located.
-
-Install Requirements and Start Server:
-Follow steps 2-7 as listed above to activate the virtual environment, install dependencies, apply migrations, create a superuser, and start the development server.
-
-Project Structure
+env
+REACT_APP_API_BASE_URL=http://localhost:8000
+▶️ Run the Frontend
 bash
-Copy code
-BackendForCRM/
-├── be_crm/
-├── env/
-├── mybe/
-├── staticfiles/
-├── db.sqlite3
-├── info.py
-├── initial_data.json
-├── manage.py
-├── requirements.txt
-├── seed_db.py
-└── README.md
-Contributing
-Contributions are welcome! Please fork this repository and submit a pull request for any features, bug fixes, or enhancements.
+npm start
+The app will open at http://localhost:3000
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+📌 Project Status
+Actively maintained as a CRUD sandbox and full-stack learning project. Could be extended with:
+
+Authentication with JWT
+
+Search, filter, and pagination
+
+📄 License
+MIT License
